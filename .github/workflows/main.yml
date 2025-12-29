@@ -1,0 +1,147 @@
+name: Build and Release (All-in-One)
+
+on:
+  # 对应原来的 push.yaml: 代码推送时触发
+  push:
+    branches:
+      - master
+      - main
+      - 'release/**'
+    tags:
+      - '*'
+  # 对应原来的 pr-pull.yaml: 也就是有人提 PR 时触发
+  pull_request:
+    branches:
+      - master
+      - main
+  # 对应原来的 dispatch.yaml: 允许你在网页上手动点按钮运行
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  # 第一步：检查配置 (对应 build-project.yaml 中的 check-event)
+  # 这一步负责读取你的 buildspec.json 获取插件名字和版本
+  prepare-config:
+    name: Prepare Configuration ⚙️
+    runs-on: ubuntu-24.04
+    outputs:
+      pluginName: ${{ steps.setup.outputs.pluginName }}
+      pluginVersion: ${{ steps.setup.outputs.pluginVersion }}
+      config: ${{ steps.setup.outputs.config }}
+      package: ${{ steps.setup.outputs.package }}
+      codesign: ${{ steps.setup.outputs.codesign }}
+      commitHash: ${{ steps.setup.outputs.commitHash }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Parse Configuration
+        id: setup
+        shell: bash
+        run: |
+          # 默认配置
+          echo "config=RelWithDebInfo" >> $GITHUB_OUTPUT
+          echo "package=true" >> $GITHUB_OUTPUT
+          echo "codesign=true" >> $GITHUB_OUTPUT
+          echo "commitHash=${GITHUB_SHA:0:9}" >> $GITHUB_OUTPUT
+
+          # 读取 buildspec.json 的名字和版本
+          if [ -f "buildspec.json" ]; then
+            plugin_name=$(jq -r '.name' buildspec.json)
+            plugin_version=$(jq -r '.version' buildspec.json)
+            echo "pluginName=${plugin_name}" >> $GITHUB_OUTPUT
+            echo "pluginVersion=${plugin_version}" >> $GITHUB_OUTPUT
+          else
+            echo "::error::找不到 buildspec.json 文件！"
+            exit 1
+          fi
+
+  # 第二步：构建 Windows 版本 (对应 build-project.yaml 中的 windows-build)
+  build-windows:
+    name: Build Windows 🪟
+    needs: prepare-config
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # 这里的 Action 必须存在于你的 .github/actions 文件夹中
+      - name: Build Plugin 🧱
+        uses: ./.github/actions/build-plugin
+        with:
+          target: x64
+          config: ${{ needs.prepare-config.outputs.config }}
+
+      - name: Package Plugin 📀
+        uses: ./.github/actions/package-plugin
+        with:
+          target: x64
+          config: ${{ needs.prepare-config.outputs.config }}
+          package: ${{ needs.prepare-config.outputs.package }}
+
+      - name: Upload Artifacts 📡
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.prepare-config.outputs.pluginName }}-${{ needs.prepare-config.outputs.pluginVersion }}-windows-x64-${{ needs.prepare-config.outputs.commitHash }}
+          path: ${{ github.workspace }}/release/*windows-x64*.*
+
+  # 第三步：构建 macOS 版本
+  build-macos:
+    name: Build macOS 🍏
+    needs: prepare-config
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # 这里的 Action 必须存在于你的 .github/actions 文件夹中
+      - name: Build Plugin 🧱
+        uses: ./.github/actions/build-plugin
+        with:
+          target: macos-universal
+          config: ${{ needs.prepare-config.outputs.config }}
+
+      - name: Package Plugin 📀
+        uses: ./.github/actions/package-plugin
+        with:
+          target: macos-universal
+          config: ${{ needs.prepare-config.outputs.config }}
+          package: ${{ needs.prepare-config.outputs.package }}
+
+      - name: Upload Artifacts 📡
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.prepare-config.outputs.pluginName }}-${{ needs.prepare-config.outputs.pluginVersion }}-macos-universal-${{ needs.prepare-config.outputs.commitHash }}
+          path: ${{ github.workspace }}/release/*macos-universal*.*
+
+  # 第四步：自动发布 (对应 push.yaml 中的 create-release)
+  # 只有当你打 Tag (比如 v1.0.0) 的时候才会运行
+  create-release:
+    name: Create Release 🚀
+    needs: [prepare-config, build-windows, build-macos]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Prepare Release Files
+        run: |
+          mkdir release_files
+          # 把下载的所有文件移动到一个目录，方便打包
+          find artifacts -type f -exec mv {} release_files/ \;
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release_files/*
+          draft: true
