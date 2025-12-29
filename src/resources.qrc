@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/icon_settings_1.svg</file>
+        <file>assets/icon_link_1.svg</file>
+        <file>assets/icon_plane_1.svg</file>
+        <file>assets/icon_play_1.svg</file>
+        <file>assets/icon_monitor_1.svg</file>
+        <file>assets/switch_on_1.svg</file>
+        <file>assets/switch_off_1.svg</file>
+        <file>assets/icon_stop_1.svg</file>
+    </qresource>
+</RCC>

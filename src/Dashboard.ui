@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+	<class>Dashboard</class>
+	<widget class="QDockWidget" name="Dashboard">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>360</width>
+				<height>680</height>
+			</rect>
+		</property>
+		<property name="windowTitle">
+			<string>智播精灵</string>
+		</property>
+		<widget class="QWidget" name="dockWidgetContents">
+			<layout class="QVBoxLayout" name="mainLayout">
+				<property name="spacing">
+					<number>0</number>
+				</property>
+				<property name="leftMargin">
+					<number>0</number>
+				</property>
+				<property name="topMargin">
+					<number>0</number>
+				</property>
+				<property name="rightMargin">
+					<number>0</number>
+				</property>
+				<property name="bottomMargin">
+					<number>0</number>
+				</property>
+				<item>
+					<widget class="QScrollArea" name="scrollArea">
+						<property name="widgetResizable">
+							<bool>true</bool>
+						</property>
+						<property name="frameShape">
+							<enum>QFrame::NoFrame</enum>
+						</property>
+						<widget class="QWidget" name="scrollContent">
+							<property name="geometry">
+								<rect>
+									<x>0</x>
+									<y>0</y>
+									<width>360</width>
+									<height>680</height>
+								</rect>
+							</property>
+							<layout class="QVBoxLayout" name="contentLayout">
+								<property name="spacing">
+									<number>20</number>
+								</property>
+								<property name="leftMargin">
+									<number>20</number>
+								</property>
+								<property name="topMargin">
+									<number>20</number>
+								</property>
+								<property name="rightMargin">
+									<number>20</number>
+								</property>
+								<property name="bottomMargin">
+									<number>20</number>
+								</property>
+								<item>
+									<widget class="QFrame" name="topBar">
+										<layout class="QHBoxLayout" name="topLayout">
+											<property name="leftMargin">
+												<number>16</number>
+											</property>
+											<property name="topMargin">
+												<number>8</number>
+											</property>
+											<property name="rightMargin">
+												<number>16</number>
+											</property>
+											<property name="bottomMargin">
+												<number>8</number>
+											</property>
+											<item>
+												<widget class="QCheckBox" name="masterSwitch">
+													<property name="cursor">
+														<cursorShape>PointingHandCursor</cursorShape>
+													</property>
+													<property name="text">
+														<string/>
+													</property>
+												</widget>
+											</item>
+											<item>
+												<spacer name="hs1">
+													<property name="orientation">
+														<enum>Qt::Horizontal</enum>
+													</property>
+												</spacer>
+											</item>
+											<item>
+												<widget class="QLabel" name="iconLink">
+													<property name="minimumSize">
+														<size>
+															<width>16</width>
+															<height>16</height>
+														</size>
+													</property>
+													<property name="maximumSize">
+														<size>
+															<width>16</width>
+															<height>16</height>
+														</size>
+													</property>
+												</widget>
+											</item>
+											<item>
+												<widget class="QLabel" name="lblConnText">
+													<property name="text">
+														<string>直播中控台未连接</string>
+													</property>
+												</widget>
+											</item>
+											<item>
+												<widget class="QToolButton" name="btnSettings">
+													<property name="cursor">
+														<cursorShape>PointingHandCursor</cursorShape>
+													</property>
+													<property name="text">
+														<string/>
+													</property>
+												</widget>
+											</item>
+										</layout>
+									</widget>
+								</item>
+								<item>
+									<widget class="QFrame" name="statusCard">
+										<layout class="QHBoxLayout" name="statusLayout">
+											<property name="spacing">
+												<number>20</number>
+											</property>
+											<property name="leftMargin">
+												<number>24</number>
+											</property>
+											<property name="topMargin">
+												<number>20</number>
+											</property>
+											<property name="rightMargin">
+												<number>24</number>
+											</property>
+											<property name="bottomMargin">
+												<number>20</number>
+											</property>
+											<item>
+												<widget class="QLabel" name="iconStatus">
+													<property name="minimumSize">
+														<size>
+															<width>48</width>
+															<height>48</height>
+														</size>
+													</property>
+													<property name="maximumSize">
+														<size>
+															<width>48</width>
+															<height>48</height>
+														</size>
+													</property>
+												</widget>
+											</item>
+											<item>
+												<layout class="QVBoxLayout" name="vlStatusText">
+													<property name="spacing">
+														<number>4</number>
+													</property>
+													<item>
+														<widget class="QLabel" name="stText">
+															<property name="text">
+																<string>监控中</string>
+															</property>
+														</widget>
+													</item>
+													<item>
+														<widget class="QLabel" name="stSub">
+															<property name="text">
+																<string>正在监控直播间...</string>
+															</property>
+														</widget>
+													</item>
+												</layout>
+											</item>
+										</layout>
+									</widget>
+								</item>
+								<item>
+									<layout class="QHBoxLayout" name="cardsLayout">
+										<property name="spacing">
+											<number>16</number>
+										</property>
+										<item>
+											<widget class="QFrame" name="cardTime">
+												<property name="minimumSize">
+													<size>
+														<width>0</width>
+														<height>100</height>
+													</size>
+												</property>
+												<layout class="QGridLayout" name="glTime">
+													<item row="0" column="1">
+														<widget class="QToolButton" name="btnTriggerTime">
+															<property name="cursor">
+																<cursorShape>PointingHandCursor</cursorShape>
+															</property>
+															<property name="text">
+																<string/>
+															</property>
+														</widget>
+													</item>
+													<item row="1" column="0" colspan="2">
+														<widget class="QLabel" name="tVal">
+															<property name="text">
+																<string>100s</string>
+															</property>
+															<property name="alignment">
+																<set>Qt::AlignCenter</set>
+															</property>
+														</widget>
+													</item>
+													<item row="2" column="0" colspan="2">
+														<widget class="QLabel" name="lblTitleTime">
+															<property name="text">
+																<string>报时倒计时</string>
+															</property>
+															<property name="alignment">
+																<set>Qt::AlignCenter</set>
+															</property>
+														</widget>
+													</item>
+												</layout>
+											</widget>
+										</item>
+										<item>
+											<widget class="QFrame" name="cardNoise">
+												<property name="minimumSize">
+													<size>
+														<width>0</width>
+														<height>100</height>
+													</size>
+												</property>
+												<layout class="QGridLayout" name="glNoise">
+													<property name="leftMargin">
+														<number>0</number>
+													</property>
+													<property name="topMargin">
+														<number>8</number>
+													</property>
+													<property name="rightMargin">
+														<number>8</number>
+													</property>
+													<property name="bottomMargin">
+														<number>12</number>
+													</property>
+													<item row="0" column="1">
+														<widget class="QToolButton" name="btnTriggerNoise">
+															<property name="cursor">
+																<cursorShape>PointingHandCursor</cursorShape>
+															</property>
+															<property name="text">
+																<string/>
+															</property>
+														</widget>
+													</item>
+													<item row="1" column="0" colspan="2">
+														<widget class="QLabel" name="nVal">
+															<property name="text">
+																<string>100s</string>
+															</property>
+															<property name="alignment">
+																<set>Qt::AlignCenter</set>
+															</property>
+														</widget>
+													</item>
+													<item row="2" column="0" colspan="2">
+														<widget class="QLabel" name="lblTitleNoise">
+															<property name="text">
+																<string>混淆倒计时</string>
+															</property>
+															<property name="alignment">
+																<set>Qt::AlignCenter</set>
+															</property>
+														</widget>
+													</item>
+												</layout>
+											</widget>
+										</item>
+									</layout>
+								</item>
+								<item>
+									<layout class="QHBoxLayout" name="infoLayout">
+										<item>
+											<widget class="QLabel" name="lblInfo1">
+												<property name="text">
+													<string>插播音色: --</string>
+												</property>
+											</widget>
+										</item>
+										<item>
+											<spacer name="hsInfo">
+												<property name="orientation">
+													<enum>Qt::Horizontal</enum>
+												</property>
+											</spacer>
+										</item>
+										<item>
+											<widget class="QLabel" name="lblInfo2">
+												<property name="text">
+													<string>混淆素材库: 0个文件</string>
+												</property>
+											</widget>
+										</item>
+									</layout>
+								</item>
+								<item>
+									<widget class="QTextEdit" name="logBox">
+										<property name="readOnly">
+											<bool>true</bool>
+										</property>
+									</widget>
+								</item>
+							</layout>
+						</widget>
+					</widget>
+				</item>
+			</layout>
+		</widget>
+	</widget>
+	<resources/>
+	<connections/>
+</ui>

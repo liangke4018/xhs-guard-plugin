@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+	<class>ConfigDialog</class>
+	<widget class="QDialog" name="ConfigDialog">
+		<property name="geometry">
+			<rect>
+				<x>0</x>
+				<y>0</y>
+				<width>600</width>
+				<height>680</height>
+			</rect>
+		</property>
+		<property name="windowTitle">
+			<string>红薯智播 - 插件配置</string>
+		</property>
+		<property name="styleSheet">
+			<string notr="true">
+				/* 问号图标样式 */
+				QLabel#lblHelpTime, QLabel#lblHelpNoise, QLabel#lblHelpHistory, QLabel#lblHelpChain, QLabel#lblHelpDuck {
+				background-color: #444;
+				color: #ccc;
+				border-radius: 9px;
+				padding: 0px;
+				font-weight: bold;
+				font-size: 11px;
+				min-width: 18px;
+				max-width: 18px;
+				min-height: 18px;
+				max-height: 18px;
+				qproperty-alignment: AlignCenter;
+				}
+				QLabel#lblHelpTime:hover, QLabel#lblHelpNoise:hover, QLabel#lblHelpHistory:hover, QLabel#lblHelpChain:hover, QLabel#lblHelpDuck:hover {
+				background-color: #DF6A46;
+				color: white;
+				cursor: help;
+				}
+
+				/* 🎯 核心修复：全局统一高度为 28px */
+				QSpinBox, QLineEdit, QComboBox, QPushButton {
+				min-height: 28px;
+				max-height: 28px;
+				font-size: 12px;
+				margin: 4px;
+				}
+
+				/* 标签列表容器样式 */
+				QListWidget#listDuckTags {
+				background: transparent;
+				border: 1px solid #3a3a3e;
+				border-radius: 4px;
+				outline: none;
+				}
+				QListWidget#listDuckTags::item {
+				border: none;
+				}
+			</string>
+		</property>
+		<layout class="QVBoxLayout" name="mainLayout">
+			<property name="spacing">
+				<number>12</number>
+			</property>
+			<property name="leftMargin">
+				<number>24</number>
+			</property>
+			<property name="topMargin">
+				<number>24</number>
+			</property>
+			<property name="rightMargin">
+				<number>24</number>
+			</property>
+			<property name="bottomMargin">
+				<number>24</number>
+			</property>
+			<item>
+				<layout class="QGridLayout" name="gridLayout">
+					<property name="verticalSpacing">
+						<number>12</number>
+					</property>
+					<property name="horizontalSpacing">
+						<number>12</number>
+					</property>
+					<item row="0" column="0" alignment="Qt::AlignRight|Qt::AlignVCenter">
+						<widget class="QLabel" name="label">
+							<property name="text">
+								<string>插播媒体源:</string>
+							</property>
+						</widget>
+					</item>
+					<item row="0" column="2">
+						<widget class="QComboBox" name="comboMediaSource"/>
+					</item>
+					<item row="1" column="0" alignment="Qt::AlignRight|Qt::AlignVCenter">
+						<widget class="QLabel" name="label_2">
+							<property name="text">
+								<string>语音包根目录:</string>
+							</property>
+						</widget>
+					</item>
+					<item row="1" column="2">
+						<layout class="QHBoxLayout" name="pathLayout">
+							<property name="spacing">
+								<number>8</number>
+							</property>
+							<item>
+								<widget class="QLineEdit" name="editVoicePath"/>
+							</item>
+							<item>
+								<widget class="QPushButton" name="btnBrowse">
+									<property name="text">
+										<string>浏览...</string>
+									</property>
+								</widget>
+							</item>
+						</layout>
+					</item>
+					<item row="2" column="0" alignment="Qt::AlignRight|Qt::AlignVCenter">
+						<widget class="QLabel" name="label_3">
+							<property name="text">
+								<string>报时间隔(秒):</string>
+							</property>
+						</widget>
+					</item>
+					<item row="2" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+						<widget class="QLabel" name="lblHelpTime">
+							<property name="text">
+								<string>?</string>
+							</property>
+							<property name="toolTip">
+								<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;background-color:#222; color:#eee; padding:5px;&quot;&gt;设置自动报时的触发频率。&lt;br/&gt;系统将在设定的最小和最大秒数之间&lt;br/&gt;随机选择一个时间点进行报时。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+							</property>
+						</widget>
+					</item>
+					<item row="2" column="2">
+						<layout class="QHBoxLayout" name="timeLayout">
+							<property name="spacing">
+								<number>8</number>
+							</property>
+							<item>
+								<widget class="QSpinBox" name="spinTimeMin">
+									<property name="minimumSize">
+										<size>
+											<width>100</width>
+											<height>0</height>
+										</size>
+									</property>
+									<property name="maximum">
+										<number>9999</number>
+									</property>
+								</widget>
+							</item>
+							<item>
+								<widget class="QLabel" name="label_4">
+									<property name="text">
+										<string>至</string>
+									</property>
+									<property name="alignment">
+										<set>Qt::AlignCenter</set>
+									</property>
+								</widget>
+							</item>
+							<item>
+								<widget class="QSpinBox" name="spinTimeMax">
+									<property name="minimumSize">
+										<size>
+											<width>100</width>
+											<height>0</height>
+										</size>
+									</property>
+									<property name="maximum">
+										<number>9999</number>
+									</property>
+								</widget>
+							</item>
+							<item>
+								<spacer name="horizontalSpacer">
+									<property name="orientation">
+										<enum>Qt::Horizontal</enum>
+									</property>
+									<property name="sizeHint" stdset="0">
+										<size>
+											<width>40</width>
+											<height>20</height>
+										</size>
+									</property>
+								</spacer>
+							</item>
+						</layout>
+					</item>
+					<item row="3" column="0" alignment="Qt::AlignRight|Qt::AlignVCenter">
+						<widget class="QLabel" name="label_5">
+							<property name="text">
+								<string>混淆间隔(秒):</string>
+							</property>
+						</widget>
+					</item>
+					<item row="3" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+						<widget class="QLabel" name="lblHelpNoise">
+							<property name="text">
+								<string>?</string>
+							</property>
+							<property name="toolTip">
+								<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;background-color:#222; color:#eee; padding:5px;&quot;&gt;设置播放混淆音（如键盘声、鼠标声）的频率。&lt;br/&gt;系统将在设定的最小和最大秒数之间随机触发，&lt;br/&gt;增加直播间的真实感。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+							</property>
+						</widget>
+					</item>
+					<item row="3" column="2">
+						<layout class="QHBoxLayout" name="noiseLayout">
+							<property name="spacing">
+								<number>8</number>
+							</property>
+							<item>
+								<widget class="QSpinBox" name="spinNoiseMin">
+									<property name="minimumSize">
+										<size>
+											<width>100</width>
+											<height>0</height>
+										</size>
+									</property>
+									<property name="maximum">
+										<number>9999</number>
+									</property>
+								</widget>
+							</item>
+							<item>
+								<widget class="QLabel" name="label_6">
+									<property name="text">
+										<string>至</string>
+									</property>
+									<property name="alignment">
+										<set>Qt::AlignCenter</set>
+									</property>
+								</widget>
+							</item>
+							<item>
+								<widget class="QSpinBox" name="spinNoiseMax">
+									<property name="minimumSize">
+										<size>
+											<width>100</width>
+											<height>0</height>
+										</size>
+									</property>
+									<property name="maximum">
+										<number>9999</number>
+									</property>
+								</widget>
+							</item>
+							<item>
+								<spacer name="horizontalSpacer_2">
+									<property name="orientation">
+										<enum>Qt::Horizontal</enum>
+									</property>
+									<property name="sizeHint" stdset="0">
+										<size>
+											<width>40</width>
+											<height>20</height>
+										</size>
+									</property>
+								</spacer>
+							</item>
+						</layout>
+					</item>
+					<item row="4" column="0" alignment="Qt::AlignRight|Qt::AlignVCenter">
+						<widget class="QLabel" name="label_9">
+							<property name="text">
+								<string>混淆去重轮数:</string>
+							</property>
+						</widget>
+					</item>
+					<item row="4" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+						<widget class="QLabel" name="lblHelpHistory">
+							<property name="text">
+								<string>?</string>
+							</property>
+							<property name="toolTip">
+								<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;background-color:#222; color:#eee; padding:5px;&quot;&gt;设置系统记忆最近播放过的混淆音数量。&lt;br/&gt;例如设为30，则系统会尽量避免播放最近30次&lt;br/&gt;内播放过的文件，防止声音重复单调。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+							</property>
+						</widget>
+					</item>
+					<item row="4" column="2">
+						<widget class="QSpinBox" name="spinHistorySize">
+							<property name="minimumSize">
+								<size>
+									<width>100</width>
+									<height>0</height>
+								</size>
+							</property>
+							<property name="maximum">
+								<number>100</number>
+							</property>
+						</widget>
+					</item>
+					<item row="5" column="0" alignment="Qt::AlignRight|Qt::AlignVCenter">
+						<widget class="QLabel" name="label_10">
+							<property name="text">
+								<string>混淆连播阈值(秒):</string>
+							</property>
+						</widget>
+					</item>
+					<item row="5" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+						<widget class="QLabel" name="lblHelpChain">
+							<property name="text">
+								<string>?</string>
+							</property>
+							<property name="toolTip">
+								<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;background-color:#222; color:#eee; padding:5px;&quot;&gt;如果随机选中的音频时长小于此阈值（例如6秒），&lt;br/&gt;系统会自动追加播放第2个甚至第3个音频，&lt;br/&gt;模拟连续的碎碎念效果。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+							</property>
+						</widget>
+					</item>
+					<item row="5" column="2">
+						<widget class="QSpinBox" name="spinShortThreshold">
+							<property name="minimumSize">
+								<size>
+									<width>100</width>
+									<height>0</height>
+								</size>
+							</property>
+							<property name="maximum">
+								<number>60</number>
+							</property>
+						</widget>
+					</item>
+				</layout>
+			</item>
+			<item>
+				<widget class="QGroupBox" name="groupDucking">
+					<property name="title">
+						<string>音频闪避设置</string>
+					</property>
+					<layout class="QVBoxLayout" name="duckVLayout">
+						<property name="spacing">
+							<number>12</number>
+						</property>
+						<property name="leftMargin">
+							<number>16</number>
+						</property>
+						<property name="topMargin">
+							<number>16</number>
+						</property>
+						<property name="rightMargin">
+							<number>16</number>
+						</property>
+						<property name="bottomMargin">
+							<number>16</number>
+						</property>
+						<item>
+							<layout class="QHBoxLayout" name="duckHeaderLayout">
+								<item>
+									<widget class="QLabel" name="label_11">
+										<property name="text">
+											<string>选择需要压低音量的背景源:</string>
+										</property>
+									</widget>
+								</item>
+								<item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+									<widget class="QLabel" name="lblHelpDuck">
+										<property name="text">
+											<string>?</string>
+										</property>
+										<property name="toolTip">
+											<string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;background-color:#222; color:#eee; padding:5px;&quot;&gt;当插件播放语音（报时、回复、混淆）时，&lt;br/&gt;勾选的这些OBS音源（如背景音乐）的音量会自动降低，&lt;br/&gt;播放结束后自动恢复，确保语音清晰。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+										</property>
+									</widget>
+								</item>
+								<item>
+									<spacer name="horizontalSpacer_3">
+										<property name="orientation">
+											<enum>Qt::Horizontal</enum>
+										</property>
+										<property name="sizeHint" stdset="0">
+											<size>
+												<width>40</width>
+												<height>20</height>
+											</size>
+										</property>
+									</spacer>
+								</item>
+							</layout>
+						</item>
+						<item>
+							<widget class="QComboBox" name="comboAddDuckSource">
+								<property name="placeholderText">
+									<string>点击此处选择要添加的音频源...</string>
+								</property>
+							</widget>
+						</item>
+						<item>
+							<widget class="QListWidget" name="listDuckTags">
+								<property name="minimumSize">
+									<size>
+										<width>0</width>
+										<height>80</height>
+									</size>
+								</property>
+								<property name="verticalScrollBarPolicy">
+									<enum>Qt::ScrollBarAsNeeded</enum>
+								</property>
+								<property name="horizontalScrollBarPolicy">
+									<enum>Qt::ScrollBarAlwaysOff</enum>
+								</property>
+								<property name="showDropIndicator" stdset="0">
+									<bool>false</bool>
+								</property>
+								<property name="dragEnabled">
+									<bool>false</bool>
+								</property>
+								<property name="selectionMode">
+									<enum>QAbstractItemView::NoSelection</enum>
+								</property>
+								<property name="flow">
+									<enum>QListView::LeftToRight</enum>
+								</property>
+								<property name="isWrapping" stdset="0">
+									<bool>true</bool>
+								</property>
+								<property name="resizeMode">
+									<enum>QListView::Adjust</enum>
+								</property>
+								<property name="viewMode">
+									<enum>QListView::IconMode</enum>
+								</property>
+							</widget>
+						</item>
+						<item>
+							<layout class="QHBoxLayout" name="volLayout">
+								<item>
+									<widget class="QLabel" name="label_8">
+										<property name="text">
+											<string>压低至音量:</string>
+										</property>
+									</widget>
+								</item>
+								<item>
+									<widget class="QSlider" name="sliderDuckVol">
+										<property name="maximum">
+											<number>100</number>
+										</property>
+										<property name="orientation">
+											<enum>Qt::Horizontal</enum>
+										</property>
+									</widget>
+								</item>
+								<item>
+									<widget class="QLabel" name="lblVolVal">
+										<property name="text">
+											<string>20%</string>
+										</property>
+									</widget>
+								</item>
+							</layout>
+						</item>
+					</layout>
+				</widget>
+			</item>
+			<item>
+				<widget class="QDialogButtonBox" name="buttonBox">
+					<property name="standardButtons">
+						<set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+					</property>
+				</widget>
+			</item>
+		</layout>
+	</widget>
+	<resources/>
+	<connections/>
+</ui>
